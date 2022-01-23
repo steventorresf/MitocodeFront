@@ -1,0 +1,41 @@
+<mat-toolbar class="mat-elevation-z8">
+  <button mat-icon-button *ngIf="sidenav.mode === 'over'" (click)="sidenav.toggle()">
+      <mat-icon *ngIf="!sidenav.opened">
+          menu
+      </mat-icon>
+      <mat-icon *ngIf="sidenav.opened">
+          close
+      </mat-icon>
+  </button>
+  MITOCODE
+</mat-toolbar>
+<mat-sidenav-container>
+  <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z8">
+
+    <img class="avatar mat-elevation-z8" src="https://source.unsplash.com/c_GmwfHBDzk/200x200" />
+
+    <h4 class="name">Steven Torres</h4>
+    <p class="designation">Ingeniero de sistemas</p>
+
+    <mat-divider></mat-divider>
+
+    <button mat-button class="menu-button" (click)="setRuta([''])">
+        <mat-icon>home</mat-icon>
+        <span>Inicio</span>
+    </button>
+    <button mat-button class="menu-button" (click)="setRuta(['/Categorias'])">
+      <mat-icon>collections_bookmark</mat-icon>
+      <span>Categorias</span>
+    </button>
+    <button mat-button class="menu-button" (click)="setRuta(['/Productos'])">
+        <mat-icon>free_breakfast</mat-icon>
+        <span>Productos</span>
+    </button>
+
+  </mat-sidenav>
+  <mat-sidenav-content>
+      <div class="content">
+        <router-outlet></router-outlet>
+      </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

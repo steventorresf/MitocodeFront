@@ -1,0 +1,68 @@
+<div *ngIf="gridVisible" style="width: 100%;" class="m-auto">
+  <div>
+    <button class="btn btn-primary" style="float: right;" (click)="nuevo()">Nuevo</button>
+    <h1>Categorias</h1>
+  </div>
+  <div class="mt-sm">
+    <table class="text-center">
+      <thead>
+        <tr>
+          <th width="30%">Nombre</th>
+          <th width="50%">Descripci&oacute;n</th>
+          <th width="20%">Acci&oacute;n</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of dataSource">
+          <td>{{ item.nombreCategoria }}</td>
+          <td>{{ item.descripcionCategoria }}</td>
+          <td>
+            <mat-icon *ngIf="item.idCategoria > 0" (click)="editar(item)" class="mr-sm">edit</mat-icon>
+            <mat-icon *ngIf="item.idCategoria > 0" (click)="eliminar(item)">delete_forever</mat-icon>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div *ngIf="formVisible" style="width: 50%; margin-top: 50px;" class="m-auto">
+  <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+    <table class="table-form">
+      <thead>
+        <tr>
+          <th colspan="2">{{ textForm }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Nombre:</td>
+          <td>
+            <input type="text" class="form-control" formControlName="nombreCategoria">
+            <span *ngIf="nombreCategoria && nombreCategoria.invalid && nombreCategoria.touched" style="color: red;">Este campo es requerido</span>
+          </td>
+        </tr>
+        <tr>
+          <td>Descripci&oacute;n:</td>
+          <td>
+            <input type="text" class="form-control" formControlName="descripcionCategoria">
+            <label *ngIf="descripcionCategoria && descripcionCategoria.invalid && descripcionCategoria.touched" style="color: red;">Este campo es requerido</label>
+          </td>
+        </tr>
+        <tr>
+          <td>Habilitado:</td>
+          <td>
+            <input type="checkbox" class="form-control" formControlName="habilitado">
+            <label *ngIf="habilitado && habilitado.invalid && habilitado.touched" style="color: red;">Este campo es requerido</label>
+          </td>
+        </tr>
+        <tr class="text-center">
+          <td colspan="2">
+            <button  class="btn btn-primary" type="submit">Guardar</button>
+            <button class="btn btn-default" (click)="cancelar()">Cancelar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </form>
+</div>

@@ -1,0 +1,79 @@
+<div *ngIf="gridVisible" style="width: 100%;" class="m-auto">
+  <div>
+    <button class="btn btn-primary" style="float: right;" (click)="nuevo()">Nuevo</button>
+    <h1>Productos</h1>
+  </div>
+  <div class="mt-sm">
+    <table class="text-center">
+      <thead>
+        <tr>
+          <th width="30%">Nombre</th>
+          <th width="30%">Categoria</th>
+          <th width="20%">Precio Unitario</th>
+          <th width="20%">Acci&oacute;n</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of dataSource">
+          <td>{{ item.nombreProducto }}</td>
+          <td>{{ item.nombreCategoria }}</td>
+          <td>{{ item.precioUnitario }}</td>
+          <td>
+            <mat-icon *ngIf="item.idCategoria > 0" (click)="editar(item)" class="mr-sm">edit</mat-icon>
+            <mat-icon *ngIf="item.idCategoria > 0" (click)="eliminar(item)">delete_forever</mat-icon>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div *ngIf="formVisible" style="width: 50%; margin-top: 50px;" class="m-auto">
+  <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+    <table class="table-form">
+      <thead>
+        <tr>
+          <th colspan="2">{{ textForm }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Nombre:</td>
+          <td>
+            <input type="text" class="form-control" formControlName="nombreProducto">
+            <span *ngIf="nombreProducto && nombreProducto.invalid && nombreProducto.touched" style="color: red;">Este campo es requerido</span>
+          </td>
+        </tr>
+        <tr>
+          <td>Categoria:</td>
+          <td>
+            <select class="form-control" formControlName="idCategoria">
+              <option [value]="item.id" *ngFor="let item of listCategorias">{{item.nombre}}</option>
+            </select>
+            <label *ngIf="idCategoria && idCategoria.invalid && idCategoria.touched" style="color: red;">Este campo es requerido</label>
+          </td>
+        </tr>
+        <tr>
+          <td>Precio Unitario:</td>
+          <td>
+            <input type="number" class="form-control" formControlName="precioUnitario">
+            <span *ngIf="precioUnitario && precioUnitario.invalid && precioUnitario.touched" style="color: red;">El precio unitario debe ser mayor a cero (0)</span>
+          </td>
+        </tr>
+        <tr>
+          <td>Habilitado:</td>
+          <td>
+            <input type="checkbox" class="form-control" formControlName="habilitado">
+            <label *ngIf="habilitado && habilitado.invalid && habilitado.touched" style="color: red;">Este campo es requerido</label>
+          </td>
+        </tr>
+        <tr class="text-center">
+          <td colspan="2">
+            <button  class="btn btn-primary" type="submit">Guardar</button>
+            <button class="btn btn-default" (click)="cancelar()">Cancelar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </form>
+</div>
